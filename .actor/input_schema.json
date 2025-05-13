@@ -1,0 +1,39 @@
+{
+    "title": "CheerioCrawler Template",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "actorIdOrName": {
+            "title": "Actor ID or full name",
+            "type": "string",
+            "description": "Actor ID or full name",
+            "editor": "textfield",
+            "prefill": "apify/web-scraper"
+        },
+        "onlyRunsNewerThan": {
+            "title": "Only runs newer than date",
+            "type": "string",
+            "description": "Measured by when the run was started. Use JSON input to specify date with a time in ISO format, e.g. \"2024-01-01T12:00:00\"",
+            "editor": "datepicker"
+        },
+        "onlyRunsOlderThan": {
+            "title": "Only runs older than date",
+            "type": "string",
+            "description": "Measured by when the run was started. Use JSON input to specify date with a time in ISO format, e.g. \"2024-01-01T12:00:00\"",
+            "editor": "datepicker"
+        },
+        "getCostBreakdown": {
+            "title": "Get cost breakdown by usage type (1000x slower!)",
+            "type": "boolean",
+            "description": "Very slow since we need to request each run separately",
+            "default": false
+        },
+        "getDatasetItemCount": {
+            "title": "Get dataset item count (1000x slower!)",
+            "type": "boolean",
+            "description": "Very slow since we need to request each run separately",
+            "default": false
+        }
+    },
+    "required": ["actorIdOrName"]
+}
