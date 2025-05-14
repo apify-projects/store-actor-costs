@@ -20,7 +20,14 @@ Actor.on('migrating', () => {
 
 let foundLastProcessedRun = false;
 
-export const processRuns = async ({ runs, state, onlyRunsOlderThanDate, onlyRunsNewerThanDate, getCostBreakdown, getDatasetItemCount }: ProcessRunsInputs): Promise<{ stopLoop: boolean }> => {
+export const processRuns = async ({
+    runs,
+    state,
+    onlyRunsOlderThanDate,
+    onlyRunsNewerThanDate,
+    getCostBreakdown,
+    getDatasetItemCount,
+}: ProcessRunsInputs): Promise<{ stopLoop: boolean }> => {
     // Runs are in decs mode
     for (let run of runs) {
         if (isMigrating) {
@@ -51,7 +58,7 @@ export const processRuns = async ({ runs, state, onlyRunsOlderThanDate, onlyRuns
 
         // We do all calls for details only after we know the run is in date range
         if (getCostBreakdown) {
-            run = (await Actor.apifyClient.run(run.id).get())! as ActorRun
+            run = (await Actor.apifyClient.run(run.id).get())! as ActorRun;
         }
 
         let cleanItemCount = null;
@@ -75,7 +82,6 @@ export const processRuns = async ({ runs, state, onlyRunsOlderThanDate, onlyRuns
 
         state.dateAggregations[runDate].runCount++;
         state.dateAggregations[runDate].cost += run.usageTotalUsd ?? 0;
-
 
         if ((run as ActorRun).usageUsd) {
             for (const [usageType, usageUsd] of Object.entries((run as ActorRun).usageUsd as Record<string, number>)) {

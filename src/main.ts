@@ -42,10 +42,8 @@ const {
     onlyRunsNewerThan,
     onlyRunsOlderThan,
     getCostBreakdown = false,
-    getDatasetItemCount = false
+    getDatasetItemCount = false,
 } = (await Actor.getInput<Input>())!;
-
-console.log(`Loaded input`)
 
 let onlyRunsNewerThanDate;
 
@@ -66,10 +64,8 @@ if (onlyRunsOlderThan) {
 }
 
 if (onlyRunsNewerThanDate && onlyRunsOlderThanDate && onlyRunsNewerThanDate > onlyRunsOlderThanDate) {
-    await Actor.fail(`'onlyRunsNewerThan' must be an older date than 'onlyRunsOlderThan'`)
+    await Actor.fail(`'onlyRunsNewerThan' must be an older date than 'onlyRunsOlderThan'`);
 }
-
-console.log(`Input is valid`)
 
 const runsClient = Actor.apifyClient.actor(actorIdOrName).runs();
 
@@ -150,16 +146,16 @@ await Actor.pushData(Object.values(state.dateAggregations)
 
         for (const [usageType, usageUsd] of Object.entries(aggregation.costDetail)) {
             cleanedCostDetail[usageType] = Number(usageUsd.toFixed(4));
-            totalStats.costDetail[usageType] ??= 0
-            totalStats.costDetail[usageType] += Number(usageUsd.toFixed(4))
+            totalStats.costDetail[usageType] ??= 0;
+            totalStats.costDetail[usageType] += Number(usageUsd.toFixed(4));
         }
 
         const cleanedUsageDetail: Record<string, number> = {};
 
         for (const [usageType, usage] of Object.entries(aggregation.usageDetail)) {
             cleanedUsageDetail[usageType] = Number(usage.toFixed(4));
-            totalStats.usageDetail[usageType] ??= 0
-            totalStats.usageDetail[usageType] += Number(usage.toFixed(4))
+            totalStats.usageDetail[usageType] ??= 0;
+            totalStats.usageDetail[usageType] += Number(usage.toFixed(4));
         }
 
         return { ...aggregation, cost: Number(aggregation.cost.toFixed(4)), costDetail: cleanedCostDetail, usageDetail: cleanedUsageDetail };
