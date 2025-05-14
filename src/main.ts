@@ -6,8 +6,9 @@ interface Input {
     actorIdOrName: string;
     onlyRunsNewerThan?: string;
     onlyRunsOlderThan?: string;
-    getCostBreakdown?: boolean;
-    getDatasetItemCount?: boolean;
+    getCostBreakdown: boolean;
+    getDatasetItemCount: boolean;
+    parallelCalls: number;
 }
 
 interface DateAggregation {
@@ -41,8 +42,9 @@ const {
     actorIdOrName,
     onlyRunsNewerThan,
     onlyRunsOlderThan,
-    getCostBreakdown = false,
-    getDatasetItemCount = false,
+    getCostBreakdown,
+    getDatasetItemCount,
+    parallelCalls,
 } = (await Actor.getInput<Input>())!;
 
 let onlyRunsNewerThanDate;
@@ -89,6 +91,7 @@ for (; ;) {
         onlyRunsNewerThanDate,
         getCostBreakdown,
         getDatasetItemCount,
+        parallelCalls,
     });
 
     state.lastProcessedOffset = offset;

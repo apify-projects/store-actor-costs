@@ -33,6 +33,14 @@
             "type": "boolean",
             "description": "Very slow since we need to request each run separately",
             "default": false
+        },
+        "parallelCalls": {
+            "title": "Number of parallel calls for cost breakdown",
+            "type": "integer",
+            "description": "Number of parallel calls to the Apify API to speed up processing. Increasing this number might trigger rate limit warnings. If you see such warnings in the log, reduce the number.",
+            "default": 5,
+            "minimum": 1,
+            "sectionCaption": "Misc configuration"
         }
     },
     "required": ["actorIdOrName"]
